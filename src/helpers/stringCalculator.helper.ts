@@ -3,14 +3,15 @@ import { Operation } from '../enums/operation.enum';
 export function detectOperation(delimiter: string): Operation {
     switch (delimiter) {
         case '*':
-            return Operation.Multiplication;
+            return Operation.Multiplication; // If the delimiter is '*', the operation is Multiplication
         case '+':
-            return Operation.Addition;
+            return Operation.Addition; // If the delimiter is '+', the operation is Addition
         default:
             return Operation.Addition;  // Default to addition if no specific operator is given
     }
 }
 
+// Function to split the input string into a list of numbers based on the provided delimiter
 export function extractDelimiter(input: string): { rawDelimiter: string, delimiter: RegExp, numbersSection: string } {
     if (input.startsWith("//")) {
         const delimiterEndIndex = input.indexOf("\n");
@@ -26,7 +27,7 @@ export function extractDelimiter(input: string): { rawDelimiter: string, delimit
     return { rawDelimiter: ',', delimiter: /,|\n/, numbersSection: input };
 }
 
-
+// Function to split the input string into a list of numbers based on the provided delimiter
 export function splitNumbers(numbers: string, delimiter: RegExp): number[] {
     const numList: number[] = [];
     let currentNumber = '';
@@ -41,9 +42,9 @@ export function splitNumbers(numbers: string, delimiter: RegExp): number[] {
                     numList.push(num);
                 }
             }
-            currentNumber = '';
+            currentNumber = ''; // Reset currentNumber for the next number
         } else {
-            currentNumber += char;
+            currentNumber += char; // If not a delimiter, accumulate the character as part of the current number
         }
     }
 
@@ -57,6 +58,8 @@ export function splitNumbers(numbers: string, delimiter: RegExp): number[] {
     return numList;
 }
 
+
+// Function to validate that there are no negative numbers in the list of numbers
 export function validateNoNegatives(numbers: number[]): void {
     const negatives = numbers.filter(num => num < 0);
     if (negatives.length > 0) {
